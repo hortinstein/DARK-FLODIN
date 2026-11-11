@@ -13,3 +13,5 @@ jobs:
         with:
           release: dev-2025-04
       - run: odin test protocol
+      - run: odin build server -out:dark-flodin
+      - run: python3 tests/login_smoke.py --server ./dark-flodin --timeout 10
