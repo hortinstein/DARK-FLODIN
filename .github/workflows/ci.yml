@@ -1,0 +1,17 @@
+name: Odin CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  protocol:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: laytan/setup-odin@v2
+        with:
+          release: dev-2025-04
+      - run: odin test protocol
+      - run: odin build server -out:dark-flodin
+      - run: python3 tests/login_smoke.py --server ./dark-flodin --timeout 10
